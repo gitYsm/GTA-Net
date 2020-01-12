@@ -43,12 +43,14 @@ Data marking에는 https://github.com/mwindowshz/YoloToTfRecords
  - Opencv Canny를 사용 번호판의 테두리를 인식, 나머지 이미지를 잘라내고 직사각형으로 Shear 도전.
  - 번호판 이미지들이 너무 열화되었기에 테두리 인식이 불안정함. canny외에도 2-3가지를 사용해보았으나 실패.
 2. 수동 작업 Tool 개발
- - 왜곡되어 비뚫어진, 돌아간 번호판을 제대로 되게 회전해주는 Tool. 
- ** Ro-CP.py
+ - 왜곡되어 비뚫어진, 돌아간 번호판을 제대로 되게 회전해주는 Tool.  
+ 
+ ** Ro-CP.py  
  ![rotate](./rotate.png)  
    
- - 3을 완료한 후 좀 더 정밀한 data를 위해 여백 및 불필요한 이미지 부분을 자르는 Tool.
- ** Cu-CP.py
+ - 3을 완료한 후 좀 더 정밀한 data를 위해 여백 및 불필요한 이미지 부분을 자르는 Tool.  
+ 
+ ** Cu-CP.py  
  ![cut](./cut.png)  
    
 3. 번호의 시리즈화를 위한 Object Tracking
@@ -68,7 +70,8 @@ Data marking에는 https://github.com/mwindowshz/YoloToTfRecords
  - batch_generator: 부족한 그래픽카드를 보완하기 위한 제네레이터 생성 Function.
  - t_v_split: validation 비율 만들어 주는 Function.
  - make fat-lr: GTA-Net의 핵심 Function.
- * lr 한장만으로는 너무 작은 정보를 포함하고 있다고 판단(작은 파일은 3*5 픽셀의 크기) 정보량을 늘리고자 lr이미지를 4장 이어붙인 이미지와 Hr이미지 한장의 해상도를 복원해보도록 설계.(W. Shi et al., Real-time single image and video super-resolution using and efficient sub-pixel convolutional neural network. CVPR, 2016. 논문 참조하여 크게 문제없을거라 판단.)  
+ * lr 한장만으로는 너무 작은 정보를 포함하고 있다고 판단(작은 파일은 3*5 픽셀의 크기) 정보량을 늘리고자 lr이미지를 4장 이어붙인 이미지와 Hr이미지 한장의 해상도를 복원해보도록 설계.  
+ (W. Shi et al., Real-time single image and video super-resolution using and efficient sub-pixel convolutional neural network. CVPR, 2016. 논문 참조하여 크게 문제없을거라 판단.)  
   ![fatlr](./fatlr.png)  
     
  - save_val_imgs: output 이미지를 저장하는 Function.
