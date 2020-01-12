@@ -16,7 +16,7 @@
 가장 쉽게 사용하고 사물인식 예습으로 해서 가장 사용하기 편했던 Network.  
 하지만 정확도측면에서 아쉬움이 있었고 Yolo보다 다른 Network 가 정확도 가 높았기에 Yolo는 사용 안함.  
   
-2. Faster-RCNN
+2. Faster-RCNN  
 2-1. 1차 인식  
  - 블랙박스 이미지(여러 차량 및 주변환경이 보임)에서 번호판을 인식.
  - 결과물이 그다지 좋지 않았고 그에 대한 문제점으로 번호판의 크기가 작다보니 정확한 dataset이 불완전하다고 판단.
@@ -44,11 +44,11 @@ Data marking에는 https://github.com/mwindowshz/YoloToTfRecords
  - 번호판 이미지들이 너무 열화되었기에 테두리 인식이 불안정함. canny외에도 2-3가지를 사용해보았으나 실패.
 2. 수동 작업 Tool 개발
  - 왜곡되어 비뚫어진, 돌아간 번호판을 제대로 되게 회전해주는 Tool. 
- * Ro-CP.py
+ ** Ro-CP.py
  ![rotate](./rotate.png)  
    
  - 3을 완료한 후 좀 더 정밀한 data를 위해 여백 및 불필요한 이미지 부분을 자르는 Tool.
- * Cu-CP.py
+ ** Cu-CP.py
  ![cut](./cut.png)  
    
 3. 번호의 시리즈화를 위한 Object Tracking
