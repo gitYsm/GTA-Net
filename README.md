@@ -11,37 +11,31 @@
 
 
 ## 프로젝트 과정
-### 개요
-1. 번호판 인식
-2. 번호판 이미지 정제
- 2-1. 번호
-
 ### 번호판 인식
 1. Yolo (사용 못함)
- 가장 쉽게 사용하고 사물인식 예습으로 해서 가장 사용하기 편했던 Network.
- 하지만 정확도측면에서 아쉬움이 있었고 Yolo보다 다른 Network 가 정확도 가 높았기에 Yolo는 사용 안함.
-
- 사용 skill : yolo-mark, yolo
-2. Faster-RCNN
- 2-1. 1차 인식
-  - 블랙박스 이미지(여러 차량 및 주변환경이 보임)에서 번호판을 인식.
-  - 결과물이 그다지 좋지 않았고 그에 대한 문제점으로 번호판의 크기가 작다보니 정확한 dataset이 불완전하다고 판단.
-  - 인식한 이미지에 10pixel정도 더 크게 하여 이미지를 저장하여 해당 이미지로 다시 번호판을 정밀하게 mark를 침.
- 2-2. 2차 정밀 인식
-  - 번호판만 있는 이미지에서 좀 더 정확한 부분으로 dataset을 만들어 학습.
-  - 좀 더 정확하게 번호판이 인식됨을 확인.
+가장 쉽게 사용하고 사물인식 예습으로 해서 가장 사용하기 편했던 Network.  
+하지만 정확도측면에서 아쉬움이 있었고 Yolo보다 다른 Network 가 정확도 가 높았기에 Yolo는 사용 안함.
  
- 최종. Faster-RCNN을 2번 돌려 얻은 이미지를 결과물로 가져가기로 함.
-  - FasterRCNN 폴더 DK_final_object_detector_mod_xyplusjsd.py 파일
-  - 블랙박스 이미지에서 2-1 학습weight로 번호판 인식, 인식한 이미지를 가지고 2-2 학습weight로 재인식.
+2. Faster-RCNN
+2-1. 1차 인식
+ - 블랙박스 이미지(여러 차량 및 주변환경이 보임)에서 번호판을 인식.
+ - 결과물이 그다지 좋지 않았고 그에 대한 문제점으로 번호판의 크기가 작다보니 정확한 dataset이 불완전하다고 판단.
+ - 인식한 이미지에 10pixel정도 더 크게 하여 이미지를 저장하여 해당 이미지로 다시 번호판을 정밀하게 mark를 침.
+2-2. 2차 정밀 인식
+ - 번호판만 있는 이미지에서 좀 더 정확한 부분으로 dataset을 만들어 학습.
+ - 좀 더 정확하게 번호판이 인식됨을 확인.  
+   
+최종. Faster-RCNN을 2번 돌려 얻은 이미지를 결과물로 가져가기로 함.  
+ - FasterRCNN 폴더 DK_final_object_detector_mod_xyplusjsd.py 파일
+ - 블랙박스 이미지에서 2-1 학습weight로 번호판 인식, 인식한 이미지를 가지고 2-2 학습weight로 재인식.
 
-*** FasterRCNN 학습은 구글의 tensorflow models(https://github.com/tensorflow/models)를 사용.
-아래 두 사이트를 참조하여 실행했고
-http://solarisailab.com/archives/2422(protobuff 부분)
-https://ukayzm.github.io/pet-training/
-
-Data marking에는 https://github.com/mwindowshz/YoloToTfRecords 
-사이트를 참조하여 Yolo-Mark파일을 Faster-RCNN학습에 맞게 변환시켜 사용하였음.
+*** FasterRCNN 학습은 구글의 tensorflow models(https://github.com/tensorflow/models)를 사용.  
+아래 두 사이트를 참조하여 실행했고  
+http://solarisailab.com/archives/2422(protobuff 부분)  
+https://ukayzm.github.io/pet-training/  
+  
+Data marking에는 https://github.com/mwindowshz/YoloToTfRecords   
+사이트를 참조하여 Yolo-Mark파일을 Faster-RCNN학습에 맞게 변환시켜 사용하였음.  
 
 ### GTA-Net Dataset 구성을 위한 이미지 정제
 1. 번호판 이미지만 직사각형으로 추출 (실패)
@@ -58,7 +52,7 @@ Data marking에는 https://github.com/mwindowshz/YoloToTfRecords
 3. 번호의 시리즈화를 위한 Object Tracking
  - Srgan 기본 구조상 Low-resolution 이미지와 복원할 High-resoulution 이미지가 필요함.
  - Low가 무슨 숫자인지 구분하기 위해 이미지 분석시 Object tracking이 필요했음.
- - 하여 xy좌표와 Jensen Shannon Divergence를 사용하여 같은 번호판은 한 폴더에 저장되게 DK_final_object_detector_mod_xyplusjsd.py 에코드 추가.
+ - 하여 xy좌표와 Jensen Shannon Divergence를 사용하여 같은 번호판은 한 폴더에 저장되게 DK_final_object_detector_mod_xyplusjsd.py 에 코드 추가.
  ![series](./series.png)
  - 번호판에서 marking을 하며 자르고, 번호별로 폴더에 모아주는 Tool.(Yolo-Mark를 이용해 구현.)
  ![yolowrite](./yolowrite.png)
