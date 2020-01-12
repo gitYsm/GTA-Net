@@ -46,16 +46,20 @@ Data marking에는 https://github.com/mwindowshz/YoloToTfRecords
  - 왜곡되어 비뚫어진, 돌아간 번호판을 제대로 되게 회전해주는 Tool. 
  * Ro-CP.py
  ![rotate](./rotate.png)  
+   
  - 3을 완료한 후 좀 더 정밀한 data를 위해 여백 및 불필요한 이미지 부분을 자르는 Tool.
  * Cu-CP.py
  ![cut](./cut.png)  
+   
 3. 번호의 시리즈화를 위한 Object Tracking
  - Srgan 기본 구조상 Low-resolution 이미지와 복원할 High-resoulution 이미지가 필요함.
  - Low가 무슨 숫자인지 구분하기 위해 이미지 분석시 Object tracking이 필요했음.
  - 하여 xy좌표와 Jensen Shannon Divergence를 사용하여 같은 번호판은 한 폴더에 저장되게 DK_final_object_detector_mod_xyplusjsd.py 에 코드 추가.
  ![series](./series.png)  
+   
  - 번호판에서 marking을 하며 자르고, 번호별로 폴더에 모아주는 Tool.(Yolo-Mark를 이용해 구현.)
  ![yolowrite](./yolowrite.png)  
+   
 4. 속도 개선을 위한 encoding
  - Onehotencoding 개념을 이용 이미지를 10x10 배열로 이어 붙이고 라벨을 부여해 주었음.(dataset_to_numpy_and_onehotencoding.py)
  
@@ -66,6 +70,7 @@ Data marking에는 https://github.com/mwindowshz/YoloToTfRecords
  - make fat-lr: GTA-Net의 핵심 Function.
  * lr 한장만으로는 너무 작은 정보를 포함하고 있다고 판단(작은 파일은 3*5 픽셀의 크기) 정보량을 늘리고자 lr이미지를 4장 이어붙인 이미지와 Hr이미지 한장의 해상도를 복원해보도록 설계.(W. Shi et al., Real-time single image and video super-resolution using and efficient sub-pixel convolutional neural network. CVPR, 2016. 논문 참조하여 크게 문제없을거라 판단.)  
   ![fatlr](./fatlr.png)  
+    
  - save_val_imgs: output 이미지를 저장하는 Function.
 2. SRgan Custom
  2-1. Srgan에서 Feature Extract 계산에 사용되는 Perceptual Loss에 대한 Custom (실패)
@@ -92,6 +97,7 @@ Data marking에는 https://github.com/mwindowshz/YoloToTfRecords
   3-4. Fat-Lr의 다양화
   → fat-lr같은경우 기존 4장을 붙이는 것에서 8장을 붙이니 좀 더 좋아진 결과를 확인.
    ![4to8lr](./4to8lr.png)    
+     
   3-5. Output Img를 사용하여 일반 Network 학습에 사용, 복원된 숫자를 인식하여 최종적으로 번호판의 번호 출력.
  
  
