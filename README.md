@@ -93,15 +93,15 @@ Data marking에는 https://github.com/mwindowshz/YoloToTfRecords
  1. Edge검출의 한계로 자동화가 불명확해진 점.
  2. Edge검출 외에 동영상만 넣고 자동 검출하는 프로그램 및 작동 커리큘럼 개발.
  3. 시간적 여유로 못했거나 실패한 Network Custom들에 대한 여러가지 try와 test, 고찰
-  3-1. RDN이 제대로 작동하고 있는지
-  3-2. Custom Perceptual Loss 사용
-   ** VGG19가 성능 대비 높은 Loss값을 주는것으로 잠정적 결론.
-  3-3. Generator와 Discriminator의 Network Custom
-  3-4. Fat-Lr의 다양화
-  → fat-lr같은경우 기존 4장을 붙이는 것에서 8장을 붙이니 좀 더 좋아진 결과를 확인.
+  3-1. RDN이 제대로 작동하고 있는지  
+  3-2. Custom Perceptual Loss 사용  
+   ** VGG19가 성능 대비 높은 Loss값을 주는것으로 잠정적 결론.  
+  3-3. Generator와 Discriminator의 Network Custom  
+  3-4. Fat-Lr의 다양화  
+  → fat-lr같은경우 기존 4장을 붙이는 것에서 8장을 붙이니 좀 더 좋아진 결과를 확인.  
    ![4to8lr](./4to8lr.png)    
      
-  3-5. Output Img를 사용하여 일반 Network 학습에 사용, 복원된 숫자를 인식하여 최종적으로 번호판의 번호 출력.
+  3-5. Output Img를 사용하여 일반 Network 학습에 사용, 복원된 숫자를 인식하여 최종적으로 번호판의 번호 출력.  
  
  
  
