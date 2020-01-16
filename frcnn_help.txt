@@ -1,0 +1,47 @@
+ 1. Tensorflow가 gpu 인식하고 있는지 확인
+from tensorflow.python.client import device_lib
+device_lib.list_local_devices()
+gpu 나타나지 않으면 tensorflow 삭제 후 tensorflow-gpu 설치
+
+2. Faster R-CNN Fine Tuning 예제
+먼저 protobuf 설치 http://solarisailab.com/archives/2422
+
+이후, 여기에 설명 잘 되어 있음 
+https://ukayzm.github.io/pet-training/
+
+evaluation을 위해 아래 수행 (틀릴수도)
+conda install tf_object_detection
+
+TF Record 파일 만들기
+https://github.com/mwindowshz/YoloToTfRecords
+아래의 과정을 순서대로 거쳐야 함 
+yolo format -> xml -> csv -> TF Record 
+generate_tfrecord.py 실행할 때 argument 절대경로로 써야 함
+python generate_tfrecord.py --csv_input=/home/firstrow/anaconda3/envs/forProject/wsp/YoloToTfRecords/Data/list_training.csv --output_path=/home/firstrow/training.record
+
+매번 해야 함
+~/../models/research 경로에서
+export PYTHONPATH=$PYTHONPATH:`pwd`:`pwd`/slim
+
+학습하기
+(forProject) firstrow@firstrow-server:~/anaconda3/envs/forProject/wsp/models/DATA$ python ../research/object_detection/train.py --logtostderr --pipeline_config_path=/home/firstrow/anaconda3/envs/forProject/wsp/models/DATA/frrcnn_resnet101_CP.config --train_dir=/home/firstrow/anaconda3/envs/forProject/wsp/models/model_frrcnn_CP/
+
+Evaluation
+(forProject) firstrow@firstrow-server:~/anaconda3/envs/forProject/wsp/models/research$ python object_detection/eval.py --logtostderr --pipeline_config_path=/home/firstrow/anaconda3/envs/forProject/wsp/models/DATA/frrcnn_resnet101_CP.config --checkpoint_dir=/home/firstrow/anaconda3/envs/forProject/wsp/models/model_frrcnn_CP --eval_dir=/home/firstrow/anaconda3/envs/forProject/wsp/models/model_frrcnn_CP/eval
+
+TensorBoard
+
+model_frrcnn_CP 경로 가서
+tensorboard --logdir=./
+
+Training on Multi GPUs
+https://github.com/tensorpack/tensorpack/tree/master/examples/FasterRCNN
+https://github.com/tensorflow/models/issues/4316
+
+
+(py37) bit@bit202:~/wsp/models/DATA$ python ../research/object_detection/train.py --logtostderr --pipeline_config_path=/home/bit/wsp/models/DATA/frrcnn_resnet101_CP.config --train_dir=/home/bit/wsp/models/model_frrcnn_CP_2nd/
+
+(py37) bit@bit202:~/wsp/models/model_frrcnn_CP_2nd$ tensorboard --logdir=./
+
+(py37) bit@bit202:~/wsp/models/research$ python object_detection/eval.py --logtostderr --pipeline_config_path=/home/bit/wsp/models/DATA/frrcnn_resnet101_CP.config --checkpoint_dir=/home/bit/wsp/models/model_frrcnn_CP_2nd --eval_dir=/home/bit/wsp/models/model_frrcnn_CP_2nd/eval
+
